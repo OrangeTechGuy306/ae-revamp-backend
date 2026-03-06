@@ -26,6 +26,19 @@ const initDb = async () => {
             )
         `);
 
+        await pool.execute(`
+            CREATE TABLE IF NOT EXISTS installers (
+                id VARCHAR(36) PRIMARY KEY,
+                full_name VARCHAR(255) NOT NULL,
+                phone VARCHAR(20) NOT NULL,
+                other_phone VARCHAR(20),
+                address TEXT NOT NULL,
+                photo_url LONGTEXT,
+                status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
         console.log('Database tables initialized successfully');
         process.exit(0);
     } catch (error) {
