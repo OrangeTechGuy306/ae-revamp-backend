@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: true, // Allows any origin (including your local mobile IP like 192.168.x.x) for local testing
     credentials: true
 }));
 app.use(express.json({ limit: '50mb' }));
