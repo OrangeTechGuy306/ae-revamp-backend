@@ -8,10 +8,23 @@ const installerRoutes = require('./src/routes/installerRoutes');
 
 const app = express();
 
+// Parse multiple CORS origins from environment variable
+// const corsOrigins = process.env.CORS_ORIGINS 
+//     ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim())
+//     : ['http://localhost:5173', 'http://localhost:3000'];
+const corsOrigins = process.env.CORS_ORIGINS === "*"
+  ? true
+  : process.env.CORS_ORIGINS?.split(',').map(o => o.trim());
+
+console.log("cors origin", corsOrigins);
+
 // Middleware
 app.use(cors({
-    origin: true, // Allows any origin (including your local mobile IP like 192.168.x.x) for local testing
-    credentials: true
+    origin: true,
+    //corsOrigins,
+    credentials: true,
+    methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+    allowedHeaders: ["Content-Type","Authorization"]
 }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
