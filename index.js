@@ -20,8 +20,11 @@ console.log("cors origin", corsOrigins);
 
 // Middleware
 app.use(cors({
-    origin: corsOrigins,
-    credentials: true
+    origin: true,
+    //corsOrigins,
+    credentials: true,
+    methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+    allowedHeaders: ["Content-Type","Authorization"]
 }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
