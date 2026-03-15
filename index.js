@@ -9,9 +9,14 @@ const installerRoutes = require('./src/routes/installerRoutes');
 const app = express();
 
 // Parse multiple CORS origins from environment variable
-const corsOrigins = process.env.CORS_ORIGINS 
-    ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim())
-    : ['http://localhost:5173', 'http://localhost:3000'];
+// const corsOrigins = process.env.CORS_ORIGINS 
+//     ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim())
+//     : ['http://localhost:5173', 'http://localhost:3000'];
+const corsOrigins = process.env.CORS_ORIGINS === "*"
+  ? true
+  : process.env.CORS_ORIGINS?.split(',').map(o => o.trim());
+
+console.log("cors origin", corsOrigins);
 
 // Middleware
 app.use(cors({
